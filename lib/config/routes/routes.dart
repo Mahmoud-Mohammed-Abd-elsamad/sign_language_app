@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sign_language_app/features/hom_screen/data/data_sources/data_source.dart';
+import 'package:sign_language_app/features/setting_screen/presentation/pages/setting.dart';
 import '../../features/history_screen/data/data_sources/data_source.dart';
 import '../../features/history_screen/presentation/manager/history_cubit.dart';
 import '../../features/history_screen/presentation/pages/history.dart';
@@ -32,6 +34,7 @@ class Routes {
   static const String signToLanguageScreen = "signToLanguageScreen";
   static const String languageToSignScreen = "languageToSignScreen";
   static const String historyScreen = "historyScreen";
+  static const String settingScreen = "settingScreen";
 }
 
 class AppRoutes {
@@ -66,9 +69,16 @@ class AppRoutes {
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) {
           return BlocProvider(
-              create: (BuildContext context) => HomeCubit(),
+              create: (BuildContext context) => HomeCubit(profileDataSource: RemoteProfileDataSource()),
               child: HomeScreen());
         });
+
+      case Routes.settingScreen:
+        return MaterialPageRoute(builder: (context) {
+          return const SettingScreen();
+        });
+
+
       case Routes.signToLanguageScreen:
         return MaterialPageRoute(builder: (context) {
           return BlocProvider(

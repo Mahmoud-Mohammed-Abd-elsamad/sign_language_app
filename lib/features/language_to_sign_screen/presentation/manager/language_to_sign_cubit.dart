@@ -30,7 +30,6 @@ class LanguageToSignCubit extends Cubit<LanguageToSignState> {
         await useCase.call(LanguageToSignBody(text: textController.text));
 
     result.fold((l) {
-      print("${l.errorMessage}# error message#");
       emit(LanguageToSignFailed(l));
     }, (r) {
       emit(LanguageToSignSuccess(r));

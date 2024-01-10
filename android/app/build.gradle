@@ -22,6 +22,8 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+
+
 android {
     namespace "com.example.sign_language_app"
     compileSdkVersion flutter.compileSdkVersion

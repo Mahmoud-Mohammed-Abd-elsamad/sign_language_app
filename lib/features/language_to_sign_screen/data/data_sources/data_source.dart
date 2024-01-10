@@ -33,8 +33,6 @@ class RemoteLanguageToSignDataSource extends LanguageToSignDataSource {
             LanguageToSignModel.fromJson(response.data as Map<String, dynamic>);
         return Right(signToLanguageModel);
       } else {
-        print(
-            "${response.data}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return Left(RemoteFailure("Failed to translate . try again later"));
       }
     } catch (ex) {

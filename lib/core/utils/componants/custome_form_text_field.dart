@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomFormTextField extends StatefulWidget {
-  CustomFormTextField(
+  const CustomFormTextField(
       {super.key,
       required this.validator,
       required this.hintText,
@@ -14,14 +14,14 @@ class CustomFormTextField extends StatefulWidget {
       this.onPressedIcon,
       this.onChanged});
 
-  String? Function(String?)? validator;
-  String? hintText;
-  TextInputType keyboardType;
-  bool obscureText;
-  TextEditingController controller;
-  Widget? suffixIcon;
-  void Function()? onPressedIcon;
-  void Function(String)? onChanged;
+  final String? Function(String?)? validator;
+  final String? hintText;
+  final TextInputType keyboardType;
+  final bool obscureText;
+  final TextEditingController controller;
+  final Widget? suffixIcon;
+  final void Function()? onPressedIcon;
+  final  void Function(String)? onChanged;
 
   @override
   State<CustomFormTextField> createState() => _CustomFormTextFieldState();

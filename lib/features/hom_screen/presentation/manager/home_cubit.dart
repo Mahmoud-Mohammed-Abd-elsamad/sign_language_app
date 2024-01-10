@@ -1,11 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sign_language_app/core/errors/failures.dart';
+import 'package:sign_language_app/features/hom_screen/data/data_sources/data_source.dart';
+import 'package:sign_language_app/features/hom_screen/data/models/profile_model.dart';
+import 'package:sign_language_app/features/hom_screen/data/repositories/data_repo.dart';
+import 'package:sign_language_app/features/hom_screen/domain/repositories/domain_repo.dart';
+import 'package:sign_language_app/features/hom_screen/domain/use_cases/history_case.dart';
 
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit({required this.profileDataSource}) : super(HomeInitial());
+
+  ProfileDataSource profileDataSource;
 
   // var tabsList = [SignToLanguageScreen(),LanguageToSignScreen()];
   int bottomNavigationSelectedIcon = 0;
@@ -14,6 +22,26 @@ class HomeCubit extends Cubit<HomeState> {
      bottomNavigationSelectedIcon = index;
      emit(HomeInitial());
    }
+
+
+   getProfileData() async{
+
+     ProfileDomainRepository domainRepository = ProfileDataRepository(profileDataSource);
+     ProfileUseCase useCase = ProfileUseCase(domainRepository);
+
+     var result =await useCase.call();
+
+     result.fold((l){
+       emit(ProfileStateFailure(l));
+     }, (r){
+       emit(ProfileStateSuccess(r));
+     });
+
+
+   }
+
+
+
 
    navigateToProfileScreen(){
      emit(ProfileState());

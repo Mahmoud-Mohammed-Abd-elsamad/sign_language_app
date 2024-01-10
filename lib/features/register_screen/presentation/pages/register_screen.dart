@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sign_language_app/core/utils/app_strings.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -18,18 +19,19 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.primaryColor),
+      color: AppColors.primaryColor,
       child: Scaffold(
+        backgroundColor: Colors.white,
         extendBody: true,
         appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+          iconTheme: const IconThemeData(
+            color: Colors.white, //change your color here
           ),
           centerTitle: true,
           elevation: 0,
           backgroundColor: AppColors.primaryColor,
           title: Text(
-            "Sign Language",
+            AppStrings.signUp,
             style: GoogleFonts.poppins(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -41,9 +43,9 @@ class RegisterScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is RegisterFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('register failure1')),
+                const SnackBar(content: Text('register failure ')),
               );
-              return _showAlertDialog(context);
+              _showAlertDialog(context);
             } else if (state is RegisterSuccess) {
               CacheHelper.saveToken(
                   stringToken: state.model.authorisation!.token!);
@@ -71,22 +73,14 @@ class RegisterScreen extends StatelessWidget {
                           width: double.infinity,
                           color: AppColors.primaryColor),
                       Positioned(
-                        top: 0,
-                        child: Container(
-                          height: 200.w,
-                          width: 400.w,
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                      Positioned(
                         bottom: 0,
                         right: 0,
                         left: 0,
                         child: Center(
                           child: Container(
-                            height: 755.w,
-                            width: 400,
-                            decoration: BoxDecoration(
+                            height: 650.w,
+                            width: 400.w,
+                            decoration: const BoxDecoration(
                                 color: Color(0xffF4F5F9),
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(40),
@@ -97,29 +91,14 @@ class RegisterScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: 8.w,
-                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 16.w,
-                                          ),
-                                          Text(
-                                            "",
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 21.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.primaryColor,
-                                            ),
-                                          )
-                                        ],
+                                        children: [],
                                       ),
                                     ),
                                     Column(
@@ -152,13 +131,13 @@ class RegisterScreen extends StatelessWidget {
                                             }
                                             return null;
                                           },
-                                          hintText: "Email",
+                                          hintText: "Email:userName@gmail.com",
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           controller: context
                                               .read<RegisterCubit>()
                                               .emailController,
-                                          suffixIcon: Icon(Icons.person),
+                                          suffixIcon: null,
                                           obscureText: false,
                                         ),
                                         SizedBox(
@@ -225,7 +204,7 @@ class RegisterScreen extends StatelessWidget {
                                         SizedBox(
                                           height: 4.w,
                                         ),
-                                        new FlutterPwValidator(
+                                        FlutterPwValidator(
                                             controller: context
                                                 .read<RegisterCubit>()
                                                 .passController,
@@ -237,8 +216,16 @@ class RegisterScreen extends StatelessWidget {
                                             numericCharCount: 2,
                                             width: 400.w,
                                             height: 220.w,
-                                            onSuccess: () {},
-                                            onFail: () {}),
+                                            onSuccess: () {
+                                              context
+                                                  .read<RegisterCubit>()
+                                                  .flutterPwValidator = true;
+                                            },
+                                            onFail: () {
+                                              context
+                                                  .read<RegisterCubit>()
+                                                  .flutterPwValidator = false;
+                                            }),
                                         SizedBox(
                                           height: 16.w,
                                         ),
@@ -249,13 +236,18 @@ class RegisterScreen extends StatelessWidget {
                                                     .viewInsets
                                                     .bottom),
                                             child: CustomButton(
-                                              text: "Create Account",
+                                              text: "Sign Up",
                                               onTap: () {
                                                 if (context
-                                                    .read<RegisterCubit>()
-                                                    .formKey
-                                                    .currentState!
-                                                    .validate()) {
+                                                        .read<RegisterCubit>()
+                                                        .formKey
+                                                        .currentState!
+                                                        .validate() &&
+                                                    context
+                                                            .read<
+                                                                RegisterCubit>()
+                                                            .flutterPwValidator ==
+                                                        true) {
                                                   context
                                                       .read<RegisterCubit>()
                                                       .register();
@@ -288,8 +280,7 @@ class RegisterScreen extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                  "Already have an account yet ? ",
+                                              Text("Already have an account ? ",
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 12.sp,
                                                       fontWeight:
@@ -305,6 +296,9 @@ class RegisterScreen extends StatelessWidget {
                                             ],
                                           ),
                                         ),
+                                        SizedBox(
+                                          height: 20.w,
+                                        )
                                       ],
                                     ),
                                   ],
@@ -334,7 +328,7 @@ class RegisterScreen extends StatelessWidget {
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Register Failed'),
+                Text('Register failed. please try again'),
               ],
             ),
           ),

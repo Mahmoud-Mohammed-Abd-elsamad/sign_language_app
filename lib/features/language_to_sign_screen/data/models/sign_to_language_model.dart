@@ -1,6 +1,4 @@
 
-import '../../domain/entities/language_to_sign_entity.dart';
-
 class LanguageToSignModel {
   List<String>? images;
   String? word;

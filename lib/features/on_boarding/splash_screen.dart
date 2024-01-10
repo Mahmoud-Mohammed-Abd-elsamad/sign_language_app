@@ -14,11 +14,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   var splash = AppImages.splashImage1;
   var stateCount = 0;
-  bool selected = false;
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.onBoardingScreen, (route) => false);
     });
@@ -30,11 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 2), () {
       stateCount++;
-      if(stateCount <= 1){
+      if (stateCount <= 1) {
         splash = AppImages.splashImage2;
         setState(() {});
       }
-
     });
     return Scaffold(
       body: Container(
@@ -47,4 +45,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-// Image.asset(splash,fit:BoxFit.cover,),

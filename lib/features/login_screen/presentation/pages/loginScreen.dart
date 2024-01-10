@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sign_language_app/core/utils/app_images.dart';
+import 'package:sign_language_app/core/utils/app_strings.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -17,14 +19,14 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+        iconTheme: const IconThemeData(
+          color: Colors.white, //change your color here
         ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
         title: Text(
-          "Sign Language App",
+        AppStrings.login,
           style: GoogleFonts.poppins(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -34,7 +36,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
         if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('login failed')),
+            const SnackBar(content: Text("Login Failed")),
           );
           return _showAlertDialog(context);
         } else if (state is LoginSuccess) {
@@ -47,7 +49,7 @@ class LoginScreen extends StatelessWidget {
         }
       }, builder: (context, state) {
         if (state is LoginLoading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: AppColors.primaryColor,
             ),
@@ -64,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                   left: 0,
                   child: Container(
                     height: 340,
-                    child: Image.asset("assets/images/loginbacck.png",fit: BoxFit.fill),
+                    child: Image.asset(AppImages.loginScreenBackGroundImage,fit: BoxFit.fill),
                   ),
                 ),
                 Positioned(
@@ -75,8 +77,8 @@ class LoginScreen extends StatelessWidget {
                     child: Container(
                       height: 415.w,
                       width: 400.w,
-                      decoration: BoxDecoration(
-                        color: Color(0xffF4F5F9),
+                      decoration: const BoxDecoration(
+                        color: AppColors.darkWight,
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40))),
 
                       child: Padding(
@@ -179,7 +181,37 @@ class LoginScreen extends StatelessWidget {
                                       height: 52.w,
                                     ),
                                   ),
-                                )
+                                ),
+                                SizedBox(height: 8.w,),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        Routes.registerScreen,
+                                            (route) => false);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          AppStrings.alreadyHaveAnAccount,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 12.sp,
+                                              fontWeight:
+                                              FontWeight.w500,
+                                              color: Colors.black)),
+                                      Text(AppStrings.signUp,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                            AppColors.primaryColor,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 20.w,)
                               ],
                             ),
                           ],
@@ -206,7 +238,7 @@ class LoginScreen extends StatelessWidget {
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Login Failed'),
+                Text(AppStrings.invalidEmailOrPassword),
               ],
             ),
           ),

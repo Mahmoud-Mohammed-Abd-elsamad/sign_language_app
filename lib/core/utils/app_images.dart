@@ -12,6 +12,7 @@ class AppImages{
   static var signW = "assets/images/sign_w.png";
   static var signE = "assets/images/sign_e.png";
   static var homeScreenImage = "assets/images/home_image.png";
+  static var loginScreenBackGroundImage = "assets/images/login_back_ground_image.png";
   static const String noSoundIcon = "assets/icons/icon_not_sound.png";
   static const String noListenIcon = "assets/icons/icon_not_listen.png";
   static const String alphabetImage = "assets/images/alphabet_screen.png";

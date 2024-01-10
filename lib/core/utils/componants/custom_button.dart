@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../app_colors.dart';
 
 class CustomButton extends StatelessWidget {
-   CustomButton(
+   const CustomButton(
       {super.key,
       required this.width,
       required this.height,
@@ -15,12 +14,12 @@ class CustomButton extends StatelessWidget {
       required this.backgroundColor,
       required this.borderColor});
 
-  double width;
-  double height;
-  String text;
-  void Function() onTap;
-  Color backgroundColor;
-  Color borderColor;
+  final double width;
+   final double height;
+   final String text;
+   final void Function() onTap;
+   final Color backgroundColor;
+   final Color borderColor;
 
   @override
   Widget build(BuildContext context) {

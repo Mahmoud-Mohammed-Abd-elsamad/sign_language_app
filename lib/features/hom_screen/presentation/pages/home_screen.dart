@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sign_language_app/core/utils/app_images.dart';
+import 'package:sign_language_app/core/utils/app_strings.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -15,8 +17,7 @@ import '../manager/home_cubit.dart';
 import '../widgets/custome_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
-  static String routeName = "home";
+  const HomeScreen({Key? key}) : super(key: key);
 
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             actions: [
               InkWell(
                 onTap: () {
-                  context.read<HomeCubit>().navigateToProfileScreen();
+                  context.read<HomeCubit>().getProfileData();
                 },
                 child: Padding(
                   padding: EdgeInsets.only(right: 16.0.w),
@@ -68,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                     top: 60.w,
                     left: 25.w,
                     child: Center(
-                        child: Image.asset("assets/images/home_image.png"))),
+                        child: Image.asset(AppImages.homeScreenImage))),
                 Positioned(
                     top: 80.w,
                     left: 290.w,
@@ -151,17 +152,19 @@ class HomeScreen extends StatelessWidget {
         );
       },
       listener: (BuildContext context, HomeState state) {
-        if (state is ProfileState) {
-          showProfileScreen(context);
+        if (state is ProfileStateSuccess) {
+          _showProfileScreen(context, name: state.model.name??"", email:state.model.email??"");
         }
       },
     );
   }
 
-  showProfileScreen(BuildContext context) {
+
+
+  _showProfileScreen(BuildContext context,{required String name,required String email}) {
     var alertDialog = AlertDialog(
       title: Text(
-        "Profile",
+        AppStrings.profile,
         style: GoogleFonts.poppins(
             color: Colors.black, fontSize: 21, fontWeight: FontWeight.w500),
       ),
@@ -191,7 +194,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "Mahmoud Mohammed ",
+                "$name ",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -200,7 +203,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "M.mohammed55@gmail.com ",
+                email,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -209,62 +212,36 @@ class HomeScreen extends StatelessWidget {
             ),
             Column(mainAxisSize: MainAxisSize.max, children: [
               _customItem(
-                  text: 'History',
+                  text:AppStrings.history,
                   icon: Icons.history,
                   onTap: () {
                     Navigator.pushNamed(context, Routes.historyScreen);
                   },
                   flipX: false),
               _customItem(
-                  text: 'Settings',
+                  text: AppStrings.settings,
                   icon: Icons.settings,
                   onTap: () {
-                    // delete saved token
+                    Navigator.pushNamed(context, Routes.settingScreen);
                   },
                   flipX: true),
               _customItem(
-                  text: 'Sign out',
+                  text: AppStrings.signOut,
                   icon: Icons.output_outlined,
                   onTap: () {
                     // delete saved token
                     CacheHelper.deleteToken();
                     Navigator.pushNamedAndRemoveUntil(
-                        context, Routes.onBoardingScreen, (route) => false);
+                        context, Routes.loginScreen, (route) => false);
                   },
                   flipX: true),
             ])
-            // Container(
-            //   height: 475.3.w,
-            //   width: double.infinity,
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     borderRadius: BorderRadius.only(topLeft: Radius.circular(50.w),
-            //         topRight: Radius.circular(50.w),bottomLeft: Radius.circular(0.w),bottomRight: Radius.circular(0.w))
-            //   ),
-            //   child: Padding(
-            //
-            //     padding: const EdgeInsets.all(16.0),
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         SizedBox(height: 32.w,),
-            //         _customItem(label: 'Full Name', text: 'Mahmoud Mohammad'),
-            //         SizedBox(height: 8.w,),
-            //         _customItem(label: 'E-mail', text: 'mahmoud.mohamed55@gmail.com'),
-            //         SizedBox(height: 8.w,),
-            //         Text("History",style:GoogleFonts.poppins(color: Colors.black87,fontSize: 21.sp,fontWeight: FontWeight.bold),),
-            //
-            //
-            //
-            //
-            //       ],
-            //     )
-            //   ),
-            // )
           ],
         ),
       ),
     );
+
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -272,20 +249,20 @@ class HomeScreen extends StatelessWidget {
         });
   }
 
-  buildBottomNavigationBarItem(IconData image, bool selected) {
-    return BottomNavigationBarItem(
-        icon: Container(
-            height: 40.w,
-            width: 40.w,
-            decoration: BoxDecoration(
-                color: selected ? Colors.white : AppColors.primaryColor,
-                shape: BoxShape.circle),
-            child: Icon(
-              image,
-              color: selected ? AppColors.primaryColor : Colors.white,
-            )),
-        label: "");
-  }
+  // buildBottomNavigationBarItem(IconData image, bool selected) {
+  //   return BottomNavigationBarItem(
+  //       icon: Container(
+  //           height: 40.w,
+  //           width: 40.w,
+  //           decoration: BoxDecoration(
+  //               color: selected ? Colors.white : AppColors.primaryColor,
+  //               shape: BoxShape.circle),
+  //           child: Icon(
+  //             image,
+  //             color: selected ? AppColors.primaryColor : Colors.white,
+  //           )),
+  //       label: "");
+  // }
 
   Widget _customItem(
       {required String text,

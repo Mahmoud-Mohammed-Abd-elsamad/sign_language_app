@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/flutter_tts.dart';
 import '../manager/history_cubit.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -16,12 +17,15 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+
+  FlutterTtsMe flutterTts = FlutterTtsMe();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.white, //change your color here
         ),
         centerTitle: true,
         elevation: 0,
@@ -40,8 +44,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
         },
         builder: (context, state) {
           if (state is HistorySuccess) {
-            return SingleChildScrollView(
-              child: Column(
+            return   SingleChildScrollView(
+              child:state.model.history!.length == 0 ?  Column(children:[
+                SizedBox(height: 300,),
+
+                Center(child: Text("you don't have any \nTranslations history",style: GoogleFonts.poppins(fontSize: 21.sp,color: Colors.black,fontWeight: FontWeight.w500),),)])  :  Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -55,14 +62,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         itemBuilder: (context, uIndex) {
                           return Container(
                             height: 250.w,
-                            child: state.model.history!.isEmpty
-                                ? Center(
-                                    child: Text(
-                                    " you don't have any translation  \n       before",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black, fontSize: 21.sp),
-                                  ))
-                                : Column(
+                            child:Column(
                                     children: [
                                       Row(
                                         children: [
@@ -76,7 +76,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                           Spacer(),
                                           IconButton(
                                               onPressed: () {
-                                                //  flutterTts.speakText("${state.model.word}");
+                                                  flutterTts.speakText("${state.model.history![uIndex].word!.word}");
                                               },
                                               icon: const Icon(CupertinoIcons
                                                   .speaker_1_fill))
@@ -148,7 +148,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                     border: Border.all(
                                                         color: AppColors
                                                             .primaryColor)),
-                                                //child: Image.network(state.model.history![uIndex].images![index],fit: BoxFit.fill,),
+                                                child: Image.network(state.model.history![uIndex].images![index],fit: BoxFit.fill,),
                                               );
                                             },
                                           ),

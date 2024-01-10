@@ -30,7 +30,6 @@ class RemoteRegisterDataSource extends RegisterDataSource {
           "password_confirmation": registerBody.password
     },
     );
-    print(response.data);
 
       // var response = await http.post(
       //   Uri.parse(
@@ -44,10 +43,6 @@ class RemoteRegisterDataSource extends RegisterDataSource {
       //   }),
       // );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print(registerBody.email + " email =============================sucsess");
-        print(registerBody.name + " name =============================");
-        print(registerBody.password + " password =============================");
-       // print(jsonDecode(response.body) + " jsonDecode =============================");
 
         RegisterModel registerModel =
             RegisterModel.fromJson(response.data);

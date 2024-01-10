@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sign_language_app/core/utils/app_strings.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/componants/custom_icon_button.dart';
 import '../../../../core/utils/flutter_tts.dart';
 import '../manager/language_to_sign_cubit.dart';
 
 class LanguageToSignScreen extends StatelessWidget {
   LanguageToSignScreen({Key? key}) : super(key: key);
 
-  FlutterTtsMe flutterTts = FlutterTtsMe(setSpeechRate: 1.0, setVolume: 1.0);
+ final FlutterTtsMe flutterTts = FlutterTtsMe();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class LanguageToSignScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
         title: Text(
-          "Language To Sign",
+          AppStrings.languageToSign,
           style: GoogleFonts.poppins(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -278,7 +278,6 @@ class LanguageToSignScreen extends StatelessWidget {
                               context
                                   .read<LanguageToSignCubit>()
                                   .languageToSignTranslate();
-                              print("hello hello");
                             },
                             child: Icon(
                               Icons.send,
@@ -346,7 +345,6 @@ class LanguageToSignScreen extends StatelessWidget {
                             context
                                 .read<LanguageToSignCubit>()
                                 .languageToSignTranslate();
-                            print("hello hello");
                           },
                           icon: Icon(
                             Icons.send,
@@ -420,7 +418,6 @@ class LanguageToSignScreen extends StatelessWidget {
                               context
                                   .read<LanguageToSignCubit>()
                                   .languageToSignTranslate();
-                              print("hello hello");
                             },
                             child: Icon(
                               Icons.send,

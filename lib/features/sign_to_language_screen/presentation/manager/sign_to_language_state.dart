@@ -6,9 +6,10 @@ abstract class SignToLanguageState {}
 class SignToLanguageInitial extends SignToLanguageState {}
 
 class SignToLanguageTranslateLoading extends SignToLanguageState {}
+class SignToLanguageTranslateTest extends SignToLanguageState {}
 
 class SignToLanguageTranslateSuccess extends SignToLanguageState {
-  final SignToLanguageEntity model;
+  final SignToLanguageModel model;
 
   SignToLanguageTranslateSuccess(this.model);
 }

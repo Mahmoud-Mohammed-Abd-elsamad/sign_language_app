@@ -8,13 +8,13 @@ class LanguageToSignInitial extends LanguageToSignState {}
 class LanguageToSignLoading extends LanguageToSignState {}
 
 class LanguageToSignSuccess extends LanguageToSignState {
-  LanguageToSignModel model;
+ final  LanguageToSignModel model;
 
   LanguageToSignSuccess(this.model);
 }
 
 class LanguageToSignFailed extends LanguageToSignState {
-  FailureError model;
+ final FailureError model;
 
   LanguageToSignFailed(this.model);
 }

@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -10,7 +7,6 @@ import '../../data/data_sources/data_source.dart';
 import '../../data/models/register_mode.dart';
 import '../../data/repositories/data_repo.dart';
 import '../../domain/entities/register_body.dart';
-import '../../domain/entities/register_entity.dart';
 import '../../domain/repositories/domain_repo.dart';
 import '../../domain/use_cases/register_use_case.dart';
 
@@ -28,6 +24,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController confirmPasswordController = TextEditingController();
   var obscureText = true;
   var confirmPassword = false;
+  var flutterPwValidator = false;
 
   obscureTextFunction() {
     obscureText = !obscureText;
@@ -49,7 +46,6 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     result.fold((l) {
       emit(RegisterFailure(l));
-      print(l.errorMessage + "  ###error#");
     }, (r) {
       emit(RegisterSuccess(r));
     });

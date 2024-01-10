@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_camera/flutter_camera.dart';
+
+
 import '../../../../../config/routes/routes.dart';
 
 class CameraPage extends StatefulWidget {
@@ -24,15 +24,16 @@ class _CameraPageState extends State<CameraPage> {
         print("::::::::::::::::::::::::::::::::: $path");
         if (path.contains('.jpg')) {
           CameraPage.picture.add(value.path);
-          Navigator.pushNamedAndRemoveUntil(
-              context, Routes.signToLanguageScreen, (route) => false);
+
+         // Navigator.pop(context);
         }
       },
       onVideoRecorded: (value) {
         final path = value.path;
         CameraPage.videos = value.path;
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.signToLanguageScreen, (route) => false);
+        //Navigator.pop(context);
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, Routes.signToLanguageScreen, (route) => false);
         print('::::::::::::::::::::::::;; video pth $path');
 
         ///Show video preview .mp4

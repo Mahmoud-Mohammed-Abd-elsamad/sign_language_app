@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -36,8 +35,6 @@ class RemoteLoginDataSource extends LoginDataSource {
     },
     );
 
-    print(response.data);
-    print(response.statusCode);
 
     // var response = await http.post(
     //   Uri.parse(
@@ -50,17 +47,10 @@ class RemoteLoginDataSource extends LoginDataSource {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
 
-        print(body.email + " email =============================");
-        print(body.password + " password =============================");
-
         RegisterModel registerModel =
             RegisterModel.fromJson(response.data as Map<String, dynamic>);
         return Right(registerModel);
       } else {
-        print("${response.statusCode }>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        print(response.data);
-        print(body.email + " email left=============================");
-        print(body.password + " password =============================");
         return Left(RemoteFailure("Failed to register"));
       }
     } catch (ex) {
