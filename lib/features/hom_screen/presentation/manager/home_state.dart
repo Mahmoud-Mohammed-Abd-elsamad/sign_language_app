@@ -4,14 +4,14 @@ part of 'home_cubit.dart';
 abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
-class ProfileState extends HomeState {}
-class ProfileStateSuccess extends HomeState {
+class NavigateToProfileScreenSuccess extends HomeState {}
+class HomeStateSuccess extends HomeState {
  final ProfileModel model;
-  ProfileStateSuccess(this.model);
+  HomeStateSuccess(this.model);
 }
-class ProfileStateFailure extends HomeState {
+class HomeStateFailure extends HomeState {
 
   final FailureError model;
-  ProfileStateFailure(this.model);
+  HomeStateFailure(this.model);
 
 }

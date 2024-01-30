@@ -2,26 +2,38 @@ import 'package:hive/hive.dart';
 
 class CacheHelper {
 
-  static  late dynamic box ;
+  static  late dynamic tokenBox ;
+  static  late dynamic settingBox ;
 
   static init() async{
-    box  = await Hive.openBox('tokenBox');
+    tokenBox  = await Hive.openBox('tokenBox');
+    settingBox = await Hive.openBox('settingBox');
   }
 
 
-  static saveToken({required String stringToken}) async {
-    print("saveToken==============================================================");
+  static saveSettings({required double speechRate , required double volume } ){
+    settingBox.putAll({'speechRate': speechRate, "volume": volume});
+  }
 
-    await box.put('token', stringToken);
+
+  static double? getVolumeSettings(){
+   return  settingBox.get("volume");
+  }
+
+  static double? getSpeechRateSettings(){
+    return  settingBox.get("speechRate");
+  }
+
+  static saveToken({required String stringToken}) async {
+
+    await tokenBox.put('token', stringToken);
   }
 
   static String? getToken()  {
-    print("getToken==============================================================");
-    return box.get('token');
+    return tokenBox.get('token');
   }
 
   static deleteToken() {
-    print("deleteToken==============================================================");
-    box.delete('token');
+    tokenBox.delete('token');
   }
 }

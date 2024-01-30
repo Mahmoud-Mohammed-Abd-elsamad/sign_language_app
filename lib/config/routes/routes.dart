@@ -1,7 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_language_app/features/hom_screen/data/data_sources/data_source.dart';
+import 'package:sign_language_app/features/reset_password_screen/data/data_sources/data_source.dart';
+import 'package:sign_language_app/features/reset_password_screen/presentation/manager/reset_password_cubit.dart';
+import 'package:sign_language_app/features/reset_password_screen/presentation/pages/reset_passord_screen.dart';
+import 'package:sign_language_app/features/setting_screen/presentation/manager/setting_screen_cubit.dart';
 import 'package:sign_language_app/features/setting_screen/presentation/pages/setting.dart';
 import '../../features/history_screen/data/data_sources/data_source.dart';
 import '../../features/history_screen/presentation/manager/history_cubit.dart';
@@ -21,7 +24,6 @@ import '../../features/register_screen/presentation/manager/register_cubit.dart'
 import '../../features/register_screen/presentation/pages/register_screen.dart';
 import '../../features/sign_to_language_screen/data/data_sources/data_source.dart';
 import '../../features/sign_to_language_screen/presentation/manager/sign_to_language_cubit.dart';
-import '../../features/sign_to_language_screen/presentation/pages/camera_page/camera_page.dart';
 import '../../features/sign_to_language_screen/presentation/pages/sign_to_language.dart';
 
 class Routes {
@@ -30,11 +32,11 @@ class Routes {
   static const String loginScreen = "loginScreen";
   static const String registerScreen = "registerScreen";
   static const String homeScreen = "homeScreen";
-  static const String cameraScreen = "cameraScreen";
   static const String signToLanguageScreen = "signToLanguageScreen";
   static const String languageToSignScreen = "languageToSignScreen";
   static const String historyScreen = "historyScreen";
   static const String settingScreen = "settingScreen";
+  static const String resetPasswordScreen = "resetPasswordScreen";
 }
 
 class AppRoutes {
@@ -69,13 +71,14 @@ class AppRoutes {
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) {
           return BlocProvider(
-              create: (BuildContext context) => HomeCubit(profileDataSource: RemoteProfileDataSource()),
-              child: HomeScreen());
+              create: (BuildContext context) => HomeCubit(profileDataSource: RemoteProfileDataSource())..getProfileData(),
+              child: const HomeScreen());
         });
 
       case Routes.settingScreen:
         return MaterialPageRoute(builder: (context) {
-          return const SettingScreen();
+          return BlocProvider(create: (BuildContext context)  => SettingScreenCubit(),
+          child: const SettingScreen());
         });
 
 
@@ -84,7 +87,7 @@ class AppRoutes {
           return BlocProvider(
               create: (BuildContext context) => SignToLanguageCubit(
                   signToLanguageDataSource: RemoteSignToLanguageDataSource()),
-              child: SignToLanguageScreen());
+              child: const SignToLanguageScreen());
         });
       case Routes.languageToSignScreen:
         return MaterialPageRoute(builder: (context) {
@@ -95,9 +98,11 @@ class AppRoutes {
           );
         });
 
-      case Routes.cameraScreen:
+      case Routes.resetPasswordScreen:
         return MaterialPageRoute(builder: (context) {
-          return CameraPage();
+          return BlocProvider(create: (BuildContext context) => ResetPasswordCubit(
+              resetPasswordDataSource:RemoteResetPasswordDataSource()),
+          child: const ResetPasswordScreen());
         });
 
       case Routes.historyScreen:

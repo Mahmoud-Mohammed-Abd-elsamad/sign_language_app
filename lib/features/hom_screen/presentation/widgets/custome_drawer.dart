@@ -42,7 +42,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     //Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => NumbersScreen()),
+                      MaterialPageRoute(builder: (context) => const NumbersScreen()),
                     );
                     setState(() {});
                   },
@@ -53,7 +53,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 //  Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ColorsScreen()),
+                    MaterialPageRoute(builder: (context) => const ColorsScreen()),
                   );
                   setState(() {});
                 },
@@ -64,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   //Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AlphabetScreen()),
+                    MaterialPageRoute(builder: (context) => const AlphabetScreen()),
                   );
                   setState(() {});
                 },

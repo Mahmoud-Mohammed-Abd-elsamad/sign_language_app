@@ -7,15 +7,15 @@ class HistoryModel {
     if (json['history'] != null) {
       history = <History>[];
       json['history'].forEach((v) {
-        history!.add(new History.fromJson(v));
+        history!.add( History.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.history != null) {
-      data['history'] = this.history!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    if (history != null) {
+      data['history'] = history!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -28,16 +28,16 @@ class History {
   History({this.word, this.images});
 
   History.fromJson(Map<String, dynamic> json) {
-    word = json['word'] != null ? new Word.fromJson(json['word']) : null;
+    word = json['word'] != null ? Word.fromJson(json['word']) : null;
     images = json['images'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.word != null) {
-      data['word'] = this.word!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (word != null) {
+      data['word'] = word!.toJson();
     }
-    data['images'] = this.images;
+    data['images'] = images;
     return data;
   }
 }
@@ -58,11 +58,11 @@ class Word {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['word'] = this.word;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['word'] = word;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

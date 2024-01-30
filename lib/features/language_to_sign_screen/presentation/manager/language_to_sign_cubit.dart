@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import '../../../../core/errors/failures.dart';
+import '../../../../core/utils/flutter_tts.dart';
 import '../../data/data_sources/data_source.dart';
 import '../../data/models/sign_to_language_model.dart';
 import '../../data/repositories/data_repo.dart';
@@ -16,6 +16,7 @@ class LanguageToSignCubit extends Cubit<LanguageToSignState> {
       : super(LanguageToSignInitial());
   LanguageToSignDataSource languageToSignDataSource;
 
+  final FlutterTtsMe flutterTts = FlutterTtsMe();
   TextEditingController textController = TextEditingController();
 
   void languageToSignTranslate() async {

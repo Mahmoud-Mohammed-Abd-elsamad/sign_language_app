@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sign_language_app/core/utils/flutter_tts.dart';
 
@@ -16,7 +15,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await Hive.initFlutter();
   await CacheHelper.init();
-  FlutterTtsMe.configureTts(setSpeechRate: .2, setVolume: 1);
+  FlutterTtsMe.configureTts(setSpeechRate: CacheHelper.getSpeechRateSettings()??0.6 , setVolume:CacheHelper.getVolumeSettings() ?? 0.8);
 
   runApp(const MyApp());
 }
@@ -67,7 +66,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: initialRoute,
+          initialRoute: Routes.splashScreen,
           onGenerateRoute: (settings) => AppRoutes.onGenerate(settings),
         );
       },

@@ -2,7 +2,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import '../../../../core/errors/failures.dart';
-import 'package:http/http.dart' as http;
 import '../../../../core/utils/cach_helper.dart';
 import '../../../../core/utils/cosntants.dart';
 import '../models/profile_model.dart';

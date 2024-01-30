@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="sign_language_app"
+        android:label="Sign Language App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">

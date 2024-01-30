@@ -19,6 +19,9 @@ import '../widgets/custome_drawer.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (BuildContext context, state) {
@@ -37,13 +40,13 @@ class HomeScreen extends StatelessWidget {
             actions: [
               InkWell(
                 onTap: () {
-                  context.read<HomeCubit>().getProfileData();
+                  context.read<HomeCubit>().navigateToProfileScreen();
                 },
                 child: Padding(
                   padding: EdgeInsets.only(right: 16.0.w),
                   child: const Icon(
                     CupertinoIcons.profile_circled,
-                    color: Colors.black87,
+                    color: Colors.white,
                     size: 30,
                   ),
                 ),
@@ -52,7 +55,7 @@ class HomeScreen extends StatelessWidget {
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
-                  icon: Image.asset(AppIcons.drawerIcon),
+                  icon: const Icon(Icons.menu,color: Colors.white,),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
@@ -73,18 +76,18 @@ class HomeScreen extends StatelessWidget {
                 Positioned(
                     top: 80.w,
                     left: 290.w,
-                    child: ImageIcon(
+                    child: const ImageIcon(
                       AssetImage(AppIcons.noListenIcon),
                       size: 50,
                     )),
                 Positioned(
                     top: 80.w,
                     left: 25.w,
-                    child: ImageIcon(
+                    child: const ImageIcon(
                       AssetImage(AppIcons.noSoundIcon),
                       size: 50,
                     )),
-                Container(
+                SizedBox(
                   height: 400.w,
                   width: double.infinity,
                 )
@@ -110,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                             },
                           ),
                           Text(
-                            "Camera",
+                            AppStrings.camera,
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -135,7 +138,7 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                         Text(
-                          "Write",
+                          AppStrings.write,
                           style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold, fontSize: 20.sp),
                         )
@@ -152,8 +155,11 @@ class HomeScreen extends StatelessWidget {
         );
       },
       listener: (BuildContext context, HomeState state) {
-        if (state is ProfileStateSuccess) {
-          _showProfileScreen(context, name: state.model.name??"", email:state.model.email??"");
+        if (state is HomeStateSuccess) {
+          context.read<HomeCubit>().name = state.model.name?? "";
+          context.read<HomeCubit>().email = state.model.email?? "";
+        }else if (state is NavigateToProfileScreenSuccess) {
+          _showProfileScreen(context, name:context.read<HomeCubit>().name, email:context.read<HomeCubit>().email);
         }
       },
     );
@@ -168,7 +174,7 @@ class HomeScreen extends StatelessWidget {
         style: GoogleFonts.poppins(
             color: Colors.black, fontSize: 21, fontWeight: FontWeight.w500),
       ),
-      content: Container(
+      content: SizedBox(
         height: 350.w,
         child: Column(
           children: [
@@ -184,7 +190,7 @@ class HomeScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    FontAwesomeIcons.m,
+                    _profileIcon(name:name),
                     size: 50.w,
                     color: Colors.white,
                   )),
@@ -249,21 +255,6 @@ class HomeScreen extends StatelessWidget {
         });
   }
 
-  // buildBottomNavigationBarItem(IconData image, bool selected) {
-  //   return BottomNavigationBarItem(
-  //       icon: Container(
-  //           height: 40.w,
-  //           width: 40.w,
-  //           decoration: BoxDecoration(
-  //               color: selected ? Colors.white : AppColors.primaryColor,
-  //               shape: BoxShape.circle),
-  //           child: Icon(
-  //             image,
-  //             color: selected ? AppColors.primaryColor : Colors.white,
-  //           )),
-  //       label: "");
-  // }
-
   Widget _customItem(
       {required String text,
       required IconData icon,
@@ -295,5 +286,67 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  IconData _profileIcon({required String name}){
+    IconData icon = CupertinoIcons.profile_circled;
+    List<String> alphabets = [  "A", "a" ,"B" , "b" , "C" , "c" , "D" ,"d" , "E", "e" , "F" , "f" , "G" , "g" , "H" ,
+      "h" , "I" , "i" , "J" , "j" , "K" , "k" , "L" , "l" ," M" , "m" , "N" , "n" , "O" , "o" , "P" , "p"  ,"Q" ,"q" ,
+      "R" , "r" , "S" , "s" , "T" , "t" , "U" , "u" , "V" , "v" , "W" , "w" , "X" , "x" , "Y" , "y" , "Z", "z" ];
+
+    if(name[0] == alphabets[0] || name[0] == alphabets[1]) {
+      icon = FontAwesomeIcons.a;
+    }else if(name[0] == alphabets[2] || name[0] == alphabets[3]) {
+      icon = FontAwesomeIcons.b;
+    }else if(name[0] == alphabets[4] || name[0] == alphabets[5]) {
+      icon = FontAwesomeIcons.c;
+    }else if(name[0] == alphabets[6] || name[0] == alphabets[7]) {
+      icon = FontAwesomeIcons.d;
+    }else if(name[0] == alphabets[8] || name[0] == alphabets[9]) {
+      icon = FontAwesomeIcons.e;
+    }else if(name[0] == alphabets[10] || name[0] == alphabets[11]) {
+      icon = FontAwesomeIcons.f;
+    }else if(name[0] == alphabets[12] || name[0] == alphabets[13]) {
+      icon = FontAwesomeIcons.g;
+    }else if(name[0] == alphabets[14] || name[0] == alphabets[15]) {
+      icon = FontAwesomeIcons.h;
+    }else if(name[0] == alphabets[16] || name[0] == alphabets[17]) {
+      icon = FontAwesomeIcons.i;
+    }else if(name[0] == alphabets[18] || name[0] == alphabets[19]) {
+      icon = FontAwesomeIcons.j;
+    }else if(name[0] == alphabets[20] || name[0] == alphabets[21]) {
+      icon = FontAwesomeIcons.k;
+    }else if(name[0] == alphabets[22] || name[0] == alphabets[23]) {
+      icon = FontAwesomeIcons.l;
+    }else if(name[0] == alphabets[24] || name[0] == alphabets[25]) {
+      icon = FontAwesomeIcons.m;
+    }else if(name[0] == alphabets[26] || name[0] == alphabets[27]) {
+      icon = FontAwesomeIcons.n;
+    }else if(name[0] == alphabets[28] || name[0] == alphabets[29]) {
+      icon = FontAwesomeIcons.o;
+    }else if(name[0] == alphabets[30] || name[0] == alphabets[31]) {
+      icon = FontAwesomeIcons.p;
+    }else if(name[0] == alphabets[32] || name[0] == alphabets[33]) {
+      icon = FontAwesomeIcons.q;
+    }else if(name[0] == alphabets[34] || name[0] == alphabets[35]) {
+      icon = FontAwesomeIcons.r;
+    }else if(name[0] == alphabets[36] || name[0] == alphabets[37]) {
+      icon = FontAwesomeIcons.s;
+    }else if(name[0] == alphabets[38] || name[0] == alphabets[39]) {
+      icon = FontAwesomeIcons.t;
+    }else if(name[0] == alphabets[40] || name[0] == alphabets[41]) {
+      icon = FontAwesomeIcons.u;
+    }else if(name[0] == alphabets[42] || name[0] == alphabets[43]) {
+      icon = FontAwesomeIcons.v;
+    }else if(name[0] == alphabets[44] || name[0] == alphabets[45]) {
+      icon = FontAwesomeIcons.w;
+    }else if(name[0] == alphabets[46] || name[0] == alphabets[47]) {
+      icon = FontAwesomeIcons.x;
+    }else if(name[0] == alphabets[48] || name[0] == alphabets[49]) {
+      icon = FontAwesomeIcons.y;
+    }else{
+      icon = FontAwesomeIcons.z;
+    }
+
+    return icon;
   }
 }

@@ -43,7 +43,7 @@ class RegisterScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is RegisterFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('register failure ')),
+                const SnackBar(content: Text(AppStrings.registerFailure)),
               );
               _showAlertDialog(context);
             } else if (state is RegisterSuccess) {
@@ -52,13 +52,13 @@ class RegisterScreen extends StatelessWidget {
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.homeScreen, (route) => false);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('register success')),
+                const SnackBar(content: Text(AppStrings.registerSuccess)),
               );
             }
           },
           builder: (context, state) {
             if (state is RegisterLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   color: AppColors.primaryColor,
                 ),
@@ -91,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Column(
                                         crossAxisAlignment:
@@ -104,19 +104,19 @@ class RegisterScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         CustomFormTextField(
-                                          validator: (String) {
-                                            if (String == null ||
-                                                String.isEmpty) {
-                                              return "this field is required";
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return AppStrings.thisFieldIsRequired;
                                             }
                                             return null;
                                           },
-                                          hintText: "Full Name",
+                                          hintText: AppStrings.fullName,
                                           keyboardType: TextInputType.name,
                                           controller: context
                                               .read<RegisterCubit>()
                                               .nameController,
-                                          suffixIcon: Icon(Icons.person),
+                                          suffixIcon: const Icon(Icons.person),
                                           obscureText: false,
                                           onPressedIcon: () {},
                                         ),
@@ -124,34 +124,35 @@ class RegisterScreen extends StatelessWidget {
                                           height: 8.w,
                                         ),
                                         CustomFormTextField(
-                                          validator: (String) {
-                                            if (String == null ||
-                                                String.isEmpty) {
-                                              return "this field is required";
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return AppStrings.thisFieldIsRequired
+                                              ;
                                             }
                                             return null;
                                           },
-                                          hintText: "Email:userName@gmail.com",
+                                          hintText: AppStrings.emailPattern,
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           controller: context
                                               .read<RegisterCubit>()
                                               .emailController,
-                                          suffixIcon: null,
+                                          suffixIcon: Icon(Icons.email,color: Colors.black.withOpacity(.6)),
                                           obscureText: false,
                                         ),
                                         SizedBox(
                                           height: 8.w,
                                         ),
                                         CustomFormTextField(
-                                          validator: (String) {
-                                            if (String == null ||
-                                                String.isEmpty) {
-                                              return "this field is required";
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return AppStrings.thisFieldIsRequired;
                                             }
                                             return null;
                                           },
-                                          hintText: "Password",
+                                          hintText: AppStrings.password,
                                           keyboardType:
                                               TextInputType.visiblePassword,
                                           controller: context
@@ -172,10 +173,10 @@ class RegisterScreen extends StatelessWidget {
                                           height: 8.w,
                                         ),
                                         CustomFormTextField(
-                                          validator: (String) {
-                                            if (String == null ||
-                                                String.isEmpty) {
-                                              return "this field is required";
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return AppStrings.thisFieldIsRequired;
                                             }
                                             return null;
                                           },
@@ -184,7 +185,7 @@ class RegisterScreen extends StatelessWidget {
                                                 .read<RegisterCubit>()
                                                 .confirmPasswordFunction(value);
                                           },
-                                          hintText: "Confirm Password",
+                                          hintText: AppStrings.confirmPassword,
                                           keyboardType:
                                               TextInputType.visiblePassword,
                                           controller: context
@@ -199,7 +200,7 @@ class RegisterScreen extends StatelessWidget {
                                                 ? AppColors.primaryColor
                                                 : null,
                                           ),
-                                          obscureText: false,
+                                          obscureText: true,
                                         ),
                                         SizedBox(
                                           height: 4.w,
@@ -236,7 +237,7 @@ class RegisterScreen extends StatelessWidget {
                                                     .viewInsets
                                                     .bottom),
                                             child: CustomButton(
-                                              text: "Sign Up",
+                                              text: AppStrings.signUp,
                                               onTap: () {
                                                 if (context
                                                         .read<RegisterCubit>()
@@ -251,11 +252,8 @@ class RegisterScreen extends StatelessWidget {
                                                   context
                                                       .read<RegisterCubit>()
                                                       .register();
-                                                  ////>>>>>>>>>>>>>>>>>>>>>>.
                                                   FocusScope.of(context)
                                                       .unfocus(); // for close keyboard
-                                                  // Navigator.pushNamedAndRemoveUntil(context,
-                                                  //     Routes.homeScreen, (route) => false);
                                                 }
                                               },
                                               backgroundColor:
@@ -280,13 +278,13 @@ class RegisterScreen extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text("Already have an account ? ",
+                                              Text(AppStrings.alreadyHaveAnAccount,
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                       color: Colors.black)),
-                                              Text(" Sign In",
+                                              Text(AppStrings.signIn,
                                                   style: GoogleFonts.poppins(
                                                     fontSize: 12.sp,
                                                     fontWeight: FontWeight.w500,
@@ -328,13 +326,13 @@ class RegisterScreen extends StatelessWidget {
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Register failed. please try again'),
+                Text(AppStrings.registerFailedPleaseTryAgain),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('ok'),
+              child: const Text(AppStrings.ok),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sign_language_app/core/errors/failures.dart';
 import 'package:sign_language_app/features/hom_screen/data/data_sources/data_source.dart';
 import 'package:sign_language_app/features/hom_screen/data/models/profile_model.dart';
@@ -23,6 +23,11 @@ class HomeCubit extends Cubit<HomeState> {
      emit(HomeInitial());
    }
 
+    String name = "";
+    String email = "";
+
+
+
 
    getProfileData() async{
 
@@ -32,9 +37,9 @@ class HomeCubit extends Cubit<HomeState> {
      var result =await useCase.call();
 
      result.fold((l){
-       emit(ProfileStateFailure(l));
+       emit(HomeStateFailure(l));
      }, (r){
-       emit(ProfileStateSuccess(r));
+       emit(HomeStateSuccess(r));
      });
 
 
@@ -44,6 +49,6 @@ class HomeCubit extends Cubit<HomeState> {
 
 
    navigateToProfileScreen(){
-     emit(ProfileState());
+     emit(NavigateToProfileScreenSuccess());
    }
 }

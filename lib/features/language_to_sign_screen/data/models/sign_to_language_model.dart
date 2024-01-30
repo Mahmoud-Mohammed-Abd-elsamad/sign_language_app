@@ -11,9 +11,9 @@ class LanguageToSignModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['images'] = this.images;
-    data['word'] = this.word;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['images'] = images;
+    data['word'] = word;
     return data;
   }
 }

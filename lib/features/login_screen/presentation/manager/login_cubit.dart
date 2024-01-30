@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../register_screen/data/models/register_mode.dart';
 import '../../data/data_sources/data_source.dart';

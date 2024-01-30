@@ -1,6 +1,5 @@
 
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 

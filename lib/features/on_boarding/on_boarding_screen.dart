@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,16 +5,15 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../config/routes/routes.dart';
 import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_images.dart';
+import '../../core/utils/app_strings.dart';
 import '../../core/utils/componants/custom_button.dart';
 
 class OnBoardingScreen extends StatelessWidget {
    OnBoardingScreen({Key? key}) : super(key: key);
 
-  var onBoarding = AppImages.onBoardingImage1;
-
-  //var startLoginOrRegisterScreen = false;
-  PageController controller = PageController();
-  bool showStartButton = false;
+  final String onBoarding = AppImages.onBoardingImage1;
+  final PageController controller = PageController();
+  final bool showStartButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +49,8 @@ class OnBoardingScreen extends StatelessWidget {
 
 
 
-  Container _pageView(BuildContext context) {
-    return Container(
+  Widget _pageView(BuildContext context) {
+    return SizedBox(
       height: 600.w,
       width: double.infinity,
       child: PageView(
@@ -85,7 +82,7 @@ class OnBoardingScreen extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           Text(
-            "      Now, start \ncommunicating",
+            AppStrings.nowStartCommunicating,
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w600,
                 fontSize: 32.sp,
@@ -95,8 +92,7 @@ class OnBoardingScreen extends StatelessWidget {
             height: 20.w,
           ),
           Text(
-            "    Let  the conversation start \n  and don't  worry we are here \n             "
-            "           for you",
+            AppStrings.letTheConversationStart,
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w600,
                 fontSize: 20.sp,
@@ -120,7 +116,7 @@ class OnBoardingScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             Text(
-              "  Take a picture ",
+              AppStrings.takeVideo,
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600,
                   fontSize: 32.sp,
@@ -130,10 +126,9 @@ class OnBoardingScreen extends StatelessWidget {
               height: 60.w,
             ),
             Text(
-              " Whenever I can capture accurate\n   pictures, we can translate them  \n                         "
-              "  for you ",
+              AppStrings.wheneverYouCanTake,
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   fontSize: 20.sp,
                   color: Colors.black),
             ),
@@ -154,7 +149,7 @@ class OnBoardingScreen extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           Text(
-            "  Welcome to sign   \n         Language",
+            AppStrings.welcomeToSignLanguage,
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w600,
                 fontSize: 32.sp,
@@ -164,8 +159,7 @@ class OnBoardingScreen extends StatelessWidget {
             height: 20.w,
           ),
           Text(
-            " This Application helps you\n Communicate in an easier \n            "
-            "            way  ",
+            AppStrings.thisAppHelpsYouCommunicate,
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w600,
                 fontSize: 20.sp,
@@ -183,7 +177,7 @@ class OnBoardingScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(top: 60.w),
             child: Text(
-              "Sign Language",
+              AppStrings.signLanguage,
               style: GoogleFonts.poppins(
                   color: AppColors.primaryColor,
                   fontSize: 36.sp,
@@ -194,7 +188,7 @@ class OnBoardingScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(top: 8.w),
             child: Text(
-              "Welcome",
+              AppStrings.welcome,
               style: GoogleFonts.poppins(
                   color: AppColors.primaryColor,
                   fontSize: 32,
@@ -203,19 +197,19 @@ class OnBoardingScreen extends StatelessWidget {
           )),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Image.asset("assets/images/image _welcome0.png"),
+        child: Image.asset(AppImages.imageWelcome),
       ),
       SizedBox(
         height: 16.w,
       ),
-      Container(
+      SizedBox(
         //color: Colors.green,
         height: 220.w,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomButton(
-                text: "Login",
+                text: AppStrings.login,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.loginScreen);
                   //setState(() {});
@@ -226,14 +220,14 @@ class OnBoardingScreen extends StatelessWidget {
                 height: 48,
               ),
               Text(
-                "OR",
+                AppStrings.or,
                 style: GoogleFonts.poppins(
                     color: AppColors.primaryColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
               CustomButton(
-                text: 'Sign Up',
+                text: AppStrings.signUp,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.registerScreen);
                   //setState(() {});

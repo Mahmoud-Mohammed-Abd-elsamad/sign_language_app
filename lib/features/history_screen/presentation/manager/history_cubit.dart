@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../../../../core/utils/flutter_tts.dart';
 import '../../data/data_sources/data_source.dart';
 import '../../data/models/sign_to_language_model.dart';
 import '../../data/repositories/data_repo.dart';
@@ -15,6 +16,9 @@ class HistoryCubit extends Cubit<HistoryState> {
       : super(HistoryInitial());
 
   HistoryDataSource remoteHistoryDataSource;
+
+  FlutterTtsMe flutterTts = FlutterTtsMe();
+
 
   getUserHistory() async {
     emit(HistoryLoading());

@@ -16,9 +16,9 @@ class RemoteHistoryDataSource extends HistoryDataSource {
   Future<Either<FailureError, HistoryModel>>
   history() async {
     try {
-      var token =await CacheHelper.getToken();
+      var token =  CacheHelper.getToken();
 
-      Dio dio = new Dio();
+      Dio dio =  Dio();
       dio.options.headers["authorization"] = "Bearer $token";
       var response = await dio.post("${Api.baseUrl}history");
       if (response.statusCode == 200 || response.statusCode == 201) {

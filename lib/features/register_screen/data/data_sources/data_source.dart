@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../core/utils/cosntants.dart';
 import '../../domain/entities/register_body.dart';
@@ -48,8 +46,6 @@ class RemoteRegisterDataSource extends RegisterDataSource {
             RegisterModel.fromJson(response.data);
         return Right(registerModel);
       } else {
-        print(registerBody.email + " email =============================");
-        print(registerBody.name + " name =============================");
 
         return Left(FailureError("Failed to register"));
       }

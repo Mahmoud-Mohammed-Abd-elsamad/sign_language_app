@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../data/data_sources/data_source.dart';
@@ -42,7 +41,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         name: nameController.text,
         email: emailController.text,
         password: passController.text,
-        password_confirmation: confirmPasswordController.text));
+        passwordConfirmation: confirmPasswordController.text));
 
     result.fold((l) {
       emit(RegisterFailure(l));
@@ -60,27 +59,4 @@ class RegisterCubit extends Cubit<RegisterState> {
       confirmPassword = false;
     }
   }
-//  {
-//
-//    // remain data source implementation
-//    print("register method --------------------------------------------");
-//
-//    emit(RegisterLoading());
-//    RegisterDomainRepository registerDomainRepository =  RegisterDataRepository(registerDataSource);
-//   RegisterUseCase useCase = RegisterUseCase(registerDomainRepository);
-//
-//   var result  = await useCase.call(RegisterBody(name:nameController.text, email: emailController.text, password: passController.text, rePassword: repassController.text));
-//
-//   result.fold((l) => {
-//
-//   emit(RegisterFailure(l))
-//
-//   }, (r) => {
-//
-//     emit(RegisterSuccess(r))
-//   });
-//
-//
-//
-// }
 }

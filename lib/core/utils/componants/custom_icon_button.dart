@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,11 +20,11 @@ class CustomCircleIconButton extends StatelessWidget {
     child: Container(
       height: height.w,
       width: width.w,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.primaryColor,
         shape: BoxShape.circle,
       ),
-      child: Icon(icon, size: iconSize,),
+      child: Icon(icon, size: iconSize,color: Colors.white,),
     ),
       );
   }

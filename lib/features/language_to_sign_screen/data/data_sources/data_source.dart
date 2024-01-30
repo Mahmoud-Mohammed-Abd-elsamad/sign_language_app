@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../core/utils/cach_helper.dart';
 import '../../../../core/utils/cosntants.dart';
@@ -21,9 +19,9 @@ class RemoteLanguageToSignDataSource extends LanguageToSignDataSource {
   Future<Either<FailureError, LanguageToSignModel>> languageToSignTranslate(
       LanguageToSignBody languageToSignBody) async {
     try {
-      var token = await CacheHelper.getToken();
+      var token = CacheHelper.getToken();
 
-      Dio dio = new Dio();
+      Dio dio = Dio();
       dio.options.headers["authorization"] = "Bearer $token";
       var response = await dio
           .post("${Api.baseUrl}word", data: {"word": languageToSignBody.text});

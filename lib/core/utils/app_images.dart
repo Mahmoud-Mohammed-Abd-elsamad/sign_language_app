@@ -11,6 +11,7 @@ class AppImages{
   static var onBoardingImage3 = "assets/images/on_boarding_image3.png";
   static var signW = "assets/images/sign_w.png";
   static var signE = "assets/images/sign_e.png";
+  static var imageWelcome = "assets/images/image_welcome.png";
   static var homeScreenImage = "assets/images/home_image.png";
   static var loginScreenBackGroundImage = "assets/images/login_back_ground_image.png";
   static const String noSoundIcon = "assets/icons/icon_not_sound.png";

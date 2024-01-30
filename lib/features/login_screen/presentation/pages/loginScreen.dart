@@ -12,6 +12,7 @@ import '../../../../core/utils/cach_helper.dart';
 import '../../../../core/utils/componants/custom_button.dart';
 import '../../../../core/utils/componants/custome_form_text_field.dart';
 import '../manager/login_cubit.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -26,7 +27,7 @@ class LoginScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
         title: Text(
-        AppStrings.login,
+          AppStrings.login,
           style: GoogleFonts.poppins(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -36,7 +37,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
         if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Login Failed")),
+            const SnackBar(content: Text(AppStrings.loginFailed)),
           );
           return _showAlertDialog(context);
         } else if (state is LoginSuccess) {
@@ -44,7 +45,7 @@ class LoginScreen extends StatelessWidget {
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.homeScreen, (route) => false);
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login success')),
+            const SnackBar(content: Text(AppStrings.loginSuccess)),
           );
         }
       }, builder: (context, state) {
@@ -57,170 +58,217 @@ class LoginScreen extends StatelessWidget {
         } else {
           return Form(
               key: context.read<LoginCubit>().formKey,
-              child: Stack(children: [
-                Container(height: double.infinity,width: double.infinity,
-                color: Colors.white),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  child: Container(
-                    height: 340,
-                    child: Image.asset(AppImages.loginScreenBackGroundImage,fit: BoxFit.fill),
+              child: Stack(
+                children: [
+                  Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      color: Colors.white),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    child: SizedBox(
+                      height: 340.w,
+                      child: Image.asset(AppImages.loginScreenBackGroundImage,
+                          fit: BoxFit.fill),
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child: Center(
-                    child: Container(
-                      height: 415.w,
-                      width: 400.w,
-                      decoration: const BoxDecoration(
-                        color: AppColors.darkWight,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40))),
-
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-
-                          children: [
-                            SizedBox(
-                              height: 8.w,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text("Welcome Back",style:GoogleFonts.poppins(fontSize: 21.sp,fontWeight: FontWeight.bold,color:AppColors.primaryColor,),
-                                      ),Text("Sign to your account",style:GoogleFonts.poppins(fontSize: 16.sp,fontWeight: FontWeight.w600,color: Colors.black.withOpacity(.4),),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 16.w,
-                            ),
-                            Column(
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Center(
+                      child: Container(
+                        height: 415.w,
+                        width: 400.w,
+                        decoration: const BoxDecoration(
+                            color: AppColors.darkWight,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CustomFormTextField(
-                                  validator: (String) {
-                                    if (String == null || String.isEmpty) {
-                                      return "this field is required";
-                                    }
-                                    return null;
-                                  },
-                                  hintText: "Email",
-                                  keyboardType: TextInputType.emailAddress,
-                                  controller:
-                                  context.read<LoginCubit>().emailController,
-                                  suffixIcon: Icon(Icons.email,color: Colors.black.withOpacity(.6),),
-                                  obscureText: false,
-                                ),
                                 SizedBox(
                                   height: 8.w,
                                 ),
-
-                                CustomFormTextField(
-                                  validator: (String) {
-                                    if (String == null || String.isEmpty) {
-                                      return "this field is required";
-                                    }
-                                    return null;
-                                  },
-                                  hintText: "Password",
-                                  keyboardType: TextInputType.visiblePassword,
-                                  controller:
-                                  context.read<LoginCubit>().passController,
-                                  suffixIcon:
-                                  const Icon(CupertinoIcons.eye_slash_fill),
-                                  onPressedIcon: () {
-                                    context.read<LoginCubit>().obscureTextFunction();
-                                  },
-                                  obscureText: context.read<LoginCubit>().obscureText,
-                                ),
-                                SizedBox(height: 8.w,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text("Forget Password?",style:GoogleFonts.poppins(fontSize: 12.sp,fontWeight: FontWeight.w500,color:AppColors.primaryColor,)),
-                                    SizedBox(width: 12.w,)
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppStrings.welcomeBack,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 21.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.primaryColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        AppStrings.signToYourAccount,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black.withOpacity(.4),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 16.w,
                                 ),
-                                Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        bottom:
-                                        MediaQuery.of(context).viewInsets.bottom),
-                                    child: CustomButton(
-                                      text: "Login",
-                                      onTap: () {
-                                        if (context
-                                            .read<LoginCubit>()
-                                            .formKey
-                                            .currentState!
-                                            .validate()) {
-                                          context
-                                              .read<LoginCubit>().login();
-                                          ////>>>>>>>>>>>>>>>>>>>>>>.
-                                          FocusScope.of(context).unfocus(); // for close keyboard
-                                          // Navigator.pushNamedAndRemoveUntil(context,
-                                          //     Routes.homeScreen, (route) => false);
+                                Column(
+                                  children: [
+                                    CustomFormTextField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return AppStrings.thisFieldIsRequired;
                                         }
+                                        return null;
                                       },
-                                      backgroundColor: AppColors.primaryColor,
-                                      borderColor: Colors.white,
-                                      width: 280.w,
-                                      height: 52.w,
+                                      hintText: AppStrings.emailPattern,
+                                      keyboardType: TextInputType.emailAddress,
+                                      controller: context
+                                          .read<LoginCubit>()
+                                          .emailController,
+                                      suffixIcon: Icon(
+                                        Icons.email,
+                                        color: Colors.black.withOpacity(.6),
+                                      ),
+                                      obscureText: false,
                                     ),
-                                  ),
-                                ),
-                                SizedBox(height: 8.w,),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        Routes.registerScreen,
+                                    SizedBox(
+                                      height: 8.w,
+                                    ),
+                                    CustomFormTextField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return AppStrings.thisFieldIsRequired;
+                                        }
+                                        return null;
+                                      },
+                                      hintText: AppStrings.password,
+                                      keyboardType:
+                                          TextInputType.visiblePassword,
+                                      controller: context
+                                          .read<LoginCubit>()
+                                          .passController,
+                                      suffixIcon: const Icon(
+                                          CupertinoIcons.eye_slash_fill),
+                                      onPressedIcon: () {
+                                        context
+                                            .read<LoginCubit>()
+                                            .obscureTextFunction();
+                                      },
+                                      obscureText: context
+                                          .read<LoginCubit>()
+                                          .obscureText,
+                                    ),
+                                    SizedBox(
+                                      height: 8.w,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  Routes.resetPasswordScreen);
+                                            },
+                                            child: Text(
+                                                AppStrings.forgetPassword,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: AppColors.primaryColor,
+                                                ))),
+                                        SizedBox(
+                                          width: 12.w,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 16.w,
+                                    ),
+                                    Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom),
+                                        child: CustomButton(
+                                          text: AppStrings.login,
+                                          onTap: () {
+                                            if (context
+                                                .read<LoginCubit>()
+                                                .formKey
+                                                .currentState!
+                                                .validate()) {
+                                              context
+                                                  .read<LoginCubit>()
+                                                  .login();
+                                              FocusScope.of(context)
+                                                  .unfocus(); // for close keyboard
+                                            }
+                                          },
+                                          backgroundColor:
+                                              AppColors.primaryColor,
+                                          borderColor: Colors.white,
+                                          width: 280.w,
+                                          height: 52.w,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8.w,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            Routes.registerScreen,
                                             (route) => false);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                          AppStrings.alreadyHaveAnAccount,
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 12.sp,
-                                              fontWeight:
-                                              FontWeight.w500,
-                                              color: Colors.black)),
-                                      Text(AppStrings.signUp,
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color:
-                                            AppColors.primaryColor,
-                                          )),
-                                    ],
-                                  ),
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(AppStrings.alreadyHaveAnAccountYet,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black)),
+                                          Text(AppStrings.signUp,
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.primaryColor,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20.w,
+                                    )
+                                  ],
                                 ),
-                                SizedBox(height: 20.w,)
                               ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],));
+                ],
+              ));
         }
       }),
     );

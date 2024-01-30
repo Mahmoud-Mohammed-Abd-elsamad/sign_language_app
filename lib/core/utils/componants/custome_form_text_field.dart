@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -44,7 +43,7 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
           suffixIcon: IconButton(
             onPressed: widget.onPressedIcon,
             icon: widget.suffixIcon ??
-                Container(
+                const SizedBox(
                   height: 0,
                   width: 0,
                 ),
@@ -56,7 +55,7 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
               borderSide: BorderSide(color: Colors.teal,width: 3)),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.grey,
             ),
@@ -65,14 +64,14 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.grey,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.grey,
             ),
